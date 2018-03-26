@@ -17,14 +17,8 @@ public class CexioManualExample {
         exchange.setCredentials(properties.getApiKey(), properties.getSecretKey());
         exchange.connect().blockingAwait();
 
-        exchange.getStreamingService().getOrderCancelled().subscribe(
-                order -> LOG.info("Cancelled: {}", order.getId()));
-
-        exchange.getStreamingService().getOrderFilledFull().subscribe(
-                order -> LOG.info("Full filled: {}", order));
-
-        exchange.getStreamingService().getOrderFilledPartially().subscribe(
-                order -> LOG.info("Partially filled: {}", order));
+        exchange.getStreamingService().getOrder().subscribe(
+                order -> LOG.info("Got order: {}", order.getId()));
 
         try {
             Thread.sleep(10000);
